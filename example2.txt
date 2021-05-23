@@ -1,0 +1,22 @@
+{
+  'badge-info': { subscriber: '12' },
+  badges: { broadcaster: '1', subscriber: '0', premium: '1' },
+  'client-nonce': '034bc271fb7f87314ad17a497bcd3241',
+  color: '#0000FF',
+  'display-name': 'Huraq',
+  emotes: null,
+  flags: null,
+  id: '83ca1286-b84d-456d-8783-cd8cce666ff3',
+  mod: false,
+  'room-id': '98177193',
+  subscriber: true,
+  'tmi-sent-ts': '1614776476782',
+  turbo: false,
+  'user-id': '98177193',
+  'user-type': null,
+  'emotes-raw': null,
+  'badge-info-raw': 'subscriber/12',
+  'badges-raw': 'broadcaster/1,subscriber/0,premium/1',
+  username: 'huraq',
+  'message-type': 'chat'
+}

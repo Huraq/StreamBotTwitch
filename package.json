@@ -1,0 +1,26 @@
+{
+  "name": "stream-bot-twitch",
+  "version": "1.0.0",
+  "description": "A bot we I am doing with my stream viewers",
+  "main": "app.js",
+  "dependencies": {
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.2",
+    "tmi.js": "^1.7.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Huraq/StreamBotTwitch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Huraq/StreamBotTwitch/issues"
+  },
+  "homepage": "https://github.com/Huraq/StreamBotTwitch#readme"
+}
