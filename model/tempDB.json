@@ -1,0 +1,48 @@
+{
+  "player": {
+    "huraq": {
+      "id": 1,
+      "username": "huraq",
+      "level": "",
+      "class": "",
+      "exp": {
+        "actualXP": "",
+        "expToNextLvl": ""
+      },
+      "status": {
+        "atk": "",
+        "def": "",
+        "actualHP": "",
+        "totalHP": ""
+      },
+      "equip": {
+        "weapon": "",
+        "armor": "",
+        "shield": ""
+      },
+      "money": ""
+    },
+    "combo_nerd": {
+      "id": 2,
+      "username": "combo_nerd",
+      "level": "",
+      "class": "",
+      "exp": {
+        "actualXP": "",
+        "expToNextLvl": ""
+      },
+      "status": {
+        "atk": "",
+        "def": "",
+        "actualHP": "",
+        "totalHP": ""
+      },
+      "equip": {
+        "weapon": "",
+        "armor": "",
+        "shield": ""
+      },
+      "money": ""
+    }
+  }
+}

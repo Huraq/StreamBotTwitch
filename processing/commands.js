@@ -1,4 +1,5 @@
-// const collectors = require('./collectors.js');
+const { createNewPlayer } = require('./playersControl.js');
+const playersControl = require('./playersControl.js');
 
 // ---- Cooldowns and Cooldown Functions ----
 // vars
@@ -9,7 +10,7 @@ var cooldowns = {
         "actualValue": 0
     },
     "dice": {
-        "value": 30000,
+        "value": 10000,
         "onCd": false,
         "actualValue": 0
     }
@@ -75,5 +76,23 @@ module.exports = {
         cooldowns.gcd.onCd = true
 
         TimeCountCD("gcd")
+    },
+    perfilCheck(client, channel, user)
+    {
+        userInfo = playersControl.getPlayerInfo(user)
+
+        if (!userInfo)
+            client.say(channel, "Sinto muito, vc ainda não esta jogando... digite !letmeplay para criar sua ficha")
+        else
+            client.say(channel, `Opa, ola ${user}, suas infos: ${userInfo}`)
+    },
+    createNewPlayer(client, channel, user)
+    {
+        let done = playersControl.createNewPlayer(user)
+
+        if (done) 
+            client.say(channel, `Boa ${user}, agora você também está jogando!`)
+        else
+            client.say(channel, `Aparentemente você ja ta jogando ${user}...`)
     }
 }

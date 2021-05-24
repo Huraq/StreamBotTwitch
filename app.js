@@ -29,14 +29,6 @@ client.on('connected', onConnectedHandler);
 client.connect();
 
 
-// setTimeout(onTimer, 10000) // 10 segundos
-
-// function onTimer ()
-// {
-  //   setTimeout(onTimer, 10000)
-  //   client.say(options.channels[0], "testando, 1, 2, 3...")
-// }
-
 // Called every time a message comes in
 function onMessageHandler (channel, tags, message, self) 
 {
@@ -61,8 +53,18 @@ function onMessageHandler (channel, tags, message, self)
     commands.dice(client, channel, diceSides)
   }
 
-}
+  // Commandos apenas do RPG
+  if (commandName === "!rpg")
+  {
+    let secondaryCommand = message.trim().split(" ")[1];
 
+    if (secondaryCommand === "perfilCheck" || secondaryCommand === "perfil" || secondaryCommand === "p")
+      commands.perfilCheck(client, channel, tags.username)
+  }
+
+  if (commandName === "!letmeplay")
+    commands.createNewPlayer(client, channel, tags.username)
+}
 
 // Called every time the bot connects to Twitch chat
 function onConnectedHandler (addr, port) {
