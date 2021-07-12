@@ -1,5 +1,4 @@
-const { createNewPlayer } = require('./playersControl.js');
-const playersControl = require('./playersControl.js');
+const model = require('../model/model.js');
 
 // ---- Cooldowns and Cooldown Functions ----
 // vars
@@ -11,6 +10,11 @@ var cooldowns = {
     },
     "dice": {
         "value": 10000,
+        "onCd": false,
+        "actualValue": 0
+    },
+    "fight": {
+        "value": 60000,
         "onCd": false,
         "actualValue": 0
     }
@@ -35,6 +39,14 @@ function ErrorMessageCD(client, channel, cdName)
     let timeLeft = (cooldowns[cdName].value/1000) - cooldowns[cdName].actualValue 
     client.action(channel, `Opa, o comando !${cdName} ta no cooldown, calma ae! Faltam ${timeLeft} segundos`)
 }
+
+// Send message when the CD finishes up
+function CooldownFinishedMessage(client, channel, cdName)
+{
+    if (cdName == "fight")
+        client.action(channel, `A arena esta limpa novamente, o comando !${cdName} ta liberado, escolha seu adversário e venha batalhar!`)
+}
+
 // ---- End of Cooldowns and Cooldown Functions ----
 
 
@@ -64,31 +76,43 @@ module.exports = {
 
         TimeCountCD("dice")
     },
-    fight(client, channel, user)
+    fight(client, channel, user, targetUser)
     {
-        if (cooldowns.gcd.onCd)
+        if (cooldowns.fight.onCd)
         {
-            ErrorMessageCD(client, channel, "gcd")
+            ErrorMessageCD(client, channel, "fight")
             return;
         }
+
+        userSTR = Math.floor(Math.random() * 10)
+        tgtUserSTR = Math.floor(Math.random() * 10)
         
-        client.action(channel, `o moderador ${user} liberou, pode começar a porrada!`)
-        cooldowns.gcd.onCd = true
+        client.action(channel, `Começou a batalha! ${user} corre em direção de ${targetUser}`)
+        if (userSTR > tgtUserSTR)
+            setTimeout(() => (client.action(channel, `Quando a poeira baixa, ${user} ainda está de pé! Parabéns, você é o vencedor!`)), 2000 )
+        else if (userSTR < tgtUserSTR)
+            setTimeout(() => (client.action(channel, `Quando a poeira baixa, ${targetUser} ainda está de pé! Parabéns, você é o vencedor!`)), 2000 )
+        else
+            setTimeout(() => (client.action(channel, `Tudo está muito calmo... quando a poeira baixou, ambos estão ajoelhados e ofegantes... Foi um empate!`)), 2000 )
 
-        TimeCountCD("gcd")
+        cooldowns.fight.onCd = true
+
+        TimeCountCD("fight")
+        setTimeout(CooldownFinishedMessage, cooldowns.fight.value, client, channel, "fight")
     },
-    perfilCheck(client, channel, user)
+    // Model user functions
+    async perfilCheck(client, channel, user)
     {
-        userInfo = playersControl.getPlayerInfo(user)
+        userInfo = await model.getPlayerInfo(user)
 
-        if (!userInfo)
+        if (userInfo == null)
             client.say(channel, "Sinto muito, vc ainda não esta jogando... digite !letmeplay para criar sua ficha")
         else
             client.say(channel, `Opa, ola ${user}, suas infos: ${userInfo}`)
     },
-    createNewPlayer(client, channel, user)
+    async createNewPlayer(client, channel, user)
     {
-        let done = playersControl.createNewPlayer(user)
+        let done = await model.createNewUser(user)
 
         if (done) 
             client.say(channel, `Boa ${user}, agora você também está jogando!`)

@@ -4,6 +4,7 @@
   "description": "A bot we I am doing with my stream viewers",
   "main": "app.js",
   "dependencies": {
+    "mongodb": "^3.6.9",
     "sequelize": "^6.5.0",
     "sqlite3": "^5.0.2",
     "tmi.js": "^1.7.3"

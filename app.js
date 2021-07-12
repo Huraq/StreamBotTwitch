@@ -30,7 +30,7 @@ client.connect();
 
 
 // Called every time a message comes in
-function onMessageHandler (channel, tags, message, self) 
+async function onMessageHandler (channel, tags, message, self) 
 {
   if (self) { return; } // Ignore messages from the bot
   
@@ -41,10 +41,6 @@ function onMessageHandler (channel, tags, message, self)
   if (commandName === "teste" && tags.username == "huraq")
     commands.teste(client, channel)
 
-
-  if (commandName === "!fight" && tags.mod)
-    commands.fight(client, channel, tags.username)
-
   if(commandName === "!dice")
   {
     let diceSides = message.trim().split(" ")[1];
@@ -53,17 +49,33 @@ function onMessageHandler (channel, tags, message, self)
     commands.dice(client, channel, diceSides)
   }
 
+  if (commandName == "!crise")
+    client.action(channel, "Tisi está passando por mais uma crise... e eu to com preguiça de fazer contador xD <3")
+
   // Commandos apenas do RPG
   if (commandName === "!rpg")
   {
     let secondaryCommand = message.trim().split(" ")[1];
+    let targetName = message.trim().split(" ")[2];
 
-    if (secondaryCommand === "perfilCheck" || secondaryCommand === "perfil" || secondaryCommand === "p")
+    if (secondaryCommand === "perfilCheck" || secondaryCommand === "p" || !secondaryCommand)
       commands.perfilCheck(client, channel, tags.username)
+
+    if (secondaryCommand === "fight" || secondaryCommand == "lutar")
+    {
+      if (targetName)
+        commands.fight(client, channel, tags.username, targetName.substring(1))
+      else
+        client.action(channel, "Informe contra quem vc quer batalhar por favor...")
+    }
   }
 
   if (commandName === "!letmeplay")
     commands.createNewPlayer(client, channel, tags.username)
+
+  
+  if (commandName === "!t")
+    client.whisper(tags.username, "teste").catch(e => (console.log(e)))
 }
 
 // Called every time the bot connects to Twitch chat
