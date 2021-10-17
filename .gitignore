@@ -103,7 +103,9 @@ dist
 # TernJS port file
 .tern-port
 
-
+# Visual Studio and Visual Studio Code output
+.vs/
+.vscode/
 
 # Zoeira não pode subir
 zoeira.js
